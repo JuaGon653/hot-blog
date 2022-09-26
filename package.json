@@ -17,5 +17,11 @@
   "bugs": {
     "url": "https://github.com/JuaGon653/hot-blog/issues"
   },
-  "homepage": "https://github.com/JuaGon653/hot-blog#readme"
+  "homepage": "https://github.com/JuaGon653/hot-blog#readme",
+  "dependencies": {
+    "bcrypt": "^5.0.1",
+    "dotenv": "^16.0.2",
+    "mysql2": "^2.3.3",
+    "sequelize": "^6.23.1"
+  }
 }
