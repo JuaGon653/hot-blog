@@ -1,5 +1,3 @@
-const { post } = require("../../controllers/home-routes");
-
 const newPost = async (event) => {
     event.preventDefault();
 
@@ -12,7 +10,7 @@ const createPost = async (event) => {
     const content = document.querySelector('#blog-content').value.trim();
 
     if (title && content) {
-        const response = await fetch('/create-post', {
+        const response = await fetch('/create-blog', {
             method: 'POST',
             body: JSON.stringify({ title, content }),
             headers: { 'Content-Type': 'application/json' }
@@ -24,7 +22,6 @@ const createPost = async (event) => {
             alert('Failed to create a new blog.');
         }
     }
-
 }
 
 document.querySelector('#new-post').addEventListener('click', newPost);
