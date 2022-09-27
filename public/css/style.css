@@ -52,3 +52,7 @@ nav {
 h3{
     font-size: 15px;
 }
+
+textarea {
+    max-width: 100%;
+}
