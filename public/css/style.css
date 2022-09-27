@@ -1,6 +1,6 @@
 /* Nav Bar */
 header {
-    position: fixed;
+    position: relative;
     width: 100%;
     background-color: darkcyan;
     z-index: 1;
@@ -32,4 +32,14 @@ nav {
 }
 .links ul li a:hover{
     color: brown;
+}
+
+.card h1{
+    font-size: 25px;
+    padding: 5px 5px;
+    background-color: tan;
+}
+.card p{
+    font-size: 20px;
+    padding: 0 5px;
 }
