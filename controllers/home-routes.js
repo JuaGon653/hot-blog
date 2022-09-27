@@ -23,7 +23,7 @@ router.get('/', withAuth, async (req, res) => {
     }
 });
 
-router.post('/dashboard', withAuth, async (req, res) => {
+router.get('/dashboard', withAuth, async (req, res) => {
     try {
         res.render('new-post');
     } catch (err) {
