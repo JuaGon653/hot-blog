@@ -32,6 +32,7 @@ nav {
 }
 .links ul li a:hover{
     color: brown;
+    cursor: pointer;
 }
 
 .card h1{
