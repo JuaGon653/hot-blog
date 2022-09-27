@@ -25,7 +25,7 @@ router.get('/', withAuth, async (req, res) => {
 
 router.get('/dashboard', withAuth, async (req, res) => {
     try {
-        res.render('new-post');
+        res.render('dashboard');
     } catch (err) {
         res.status(500).json(err);
     }
