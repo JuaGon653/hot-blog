@@ -28,7 +28,7 @@ router.get('/dashboard', withAuth, async (req, res) => {
         const userBlogs = Blog.findAll(
             {
                 where: {
-                    user_id: req.session.id
+                    user_id: req.session.user_id
                 }
             }
         );
@@ -64,10 +64,11 @@ router.get('/login', (req, res) => {
 
 router.post('/create-blog', async (req, res) => {
     try {
-        const createdBlog = Blog.create({
+        console.log(req.session.id, 'hi');
+        const createdBlog = await Blog.create({
             title: req.body.title,
             content: req.body.content,
-            user_id: req.body.user_id
+            user_id: req.session.user_id
         });
 
         res.status(200).json(createdBlog);

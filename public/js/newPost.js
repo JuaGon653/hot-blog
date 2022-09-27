@@ -1,7 +1,8 @@
 const newPost = async (event) => {
     event.preventDefault();
 
-    document.querySelector('#post-form').style['visibility'] = 'visible';
+    document.querySelector('#post-form').style['display'] = 'initial';
+    
 };
 const createPost = async (event) => {
     event.preventDefault();
@@ -25,4 +26,4 @@ const createPost = async (event) => {
 }
 
 document.querySelector('#new-post').addEventListener('click', newPost);
-document.querySelector('#create').addEventListener('submit', createPost);
+document.querySelector('.create-post-form').addEventListener('submit', createPost);
