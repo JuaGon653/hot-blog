@@ -60,6 +60,20 @@ router.get('/login', (req, res) => {
     }
 
     res.render('login');
+});
+
+router.post('/create-blog', async (req, res) => {
+    try {
+        const createdBlog = Blog.create({
+            title: req.body.title,
+            content: req.body.content,
+            user_id: req.body.user_id
+        });
+
+        res.status(200).json(createdBlog);
+    } catch (err) {
+        res.status(500).json(err);
+    }
 })
 
 module.exports = router;
