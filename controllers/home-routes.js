@@ -25,14 +25,18 @@ router.get('/', withAuth, async (req, res) => {
 
 router.get('/dashboard', withAuth, async (req, res) => {
     try {
-        const userPosts = Blog.findAll(
+        const userBlogs = Blog.findAll(
             {
                 where: {
-                    user_id: 
+                    user_id: req.session.id
                 }
             }
-        )
-        res.render('dashboard');
+        );
+
+        const blogs = (await userBlogs).map((blog) => blog.get({ plain: true }));
+        console.log(blogs);
+
+        res.render('dashboard', { blogs });
     } catch (err) {
         res.status(500).json(err);
     }
