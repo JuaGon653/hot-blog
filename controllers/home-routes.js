@@ -25,7 +25,25 @@ router.get('/', withAuth, async (req, res) => {
 
 router.get('/dashboard', withAuth, async (req, res) => {
     try {
+        const userPosts = Blog.findAll(
+            {
+                where: {
+                    user_id: 
+                }
+            }
+        )
         res.render('dashboard');
+    } catch (err) {
+        res.status(500).json(err);
+    }
+});
+
+router.get('/edit-post', withAuth, async (req, res) => {
+    try {
+        const userPosts = 
+        res.render('dashboard', {
+
+        })
     } catch (err) {
         res.status(500).json(err);
     }
