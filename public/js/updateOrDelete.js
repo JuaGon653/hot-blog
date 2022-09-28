@@ -28,7 +28,7 @@ const deletePost = async (event) => {
     const id = document.querySelector('#update').getAttribute('data-blogId');
     
     if (id) {
-        const response = await fetch('/delete-post', {
+        const response = await fetch(`/delete-post/${id}`, {
             method: 'DELETE',
             body: JSON.stringify({ id }),
             header: { 'Content-Type': 'application/json' }
