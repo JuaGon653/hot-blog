@@ -1,6 +1,9 @@
 const updatePost = async (event) => {
     event.preventDefault();
 
+    const id = event.target.dataset.blogId;
+    console.log(id);
+
     const title = document.querySelector('#blog-title').value.trim();
     const content = document.querySelector('#blog-content').value.trim();
 
@@ -18,3 +21,5 @@ const updatePost = async (event) => {
         }
     }
 }
+
+document.querySelector('#update').addEventListener('click', updatePost);
