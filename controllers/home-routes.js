@@ -116,6 +116,20 @@ router.put('/update-blog/:id', async (req, res) => {
     } catch (err) {
         res.status(500).json(err);
     }
+});
+
+router.delete('/delete-post/:id', async (req, res) => {
+    try {
+        const deletedBlog = Blog.destroy({
+            where: {
+                blogId: req.params.id
+            }
+        });
+
+        res.status(deletedBlog);
+    } catch (err) {
+        res.status(500).json(err);
+    }
 })
 
 module.exports = router;
