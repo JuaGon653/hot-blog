@@ -1,10 +1,4 @@
-const newPost = async (event) => {
-    event.preventDefault();
-
-    document.querySelector('#post-form').style['display'] = 'initial';
-    
-};
-const createPost = async (event) => {
+const updatePost = async (event) => {
     event.preventDefault();
 
     const title = document.querySelector('#blog-title').value.trim();
@@ -12,7 +6,7 @@ const createPost = async (event) => {
 
     if (title && content) {
         const response = await fetch('/update-blog', {
-            method: 'POST',
+            method: 'PUT',
             body: JSON.stringify({ title, content }),
             headers: { 'Content-Type': 'application/json' }
         });
@@ -20,10 +14,7 @@ const createPost = async (event) => {
         if (response.ok) {
             document.location.replace('/dashboard');
         } else {
-            alert('Failed to update blog.');
+            alert('Failed to create a new blog.');
         }
     }
 }
-
-document.querySelector('#new-post').addEventListener('click', newPost);
-document.querySelector('.create-post-form').addEventListener('submit', createPost);
