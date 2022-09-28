@@ -70,7 +70,17 @@ router.post('/create-blog', async (req, res) => {
             user_id: req.session.user_id
         });
 
-        res.status(200).json(createdBlog);
+        const myBlogs = await Blog.findAll({
+            where: {
+                user_id: req.session.user_id
+            }
+        });
+
+        const blogs = myBlogs.map((blog) => blog.get({ plain: true }));
+
+        res.render('dashboard', {
+            blogs
+        });
     } catch (err) {
         res.status(500).json(err);
     }
