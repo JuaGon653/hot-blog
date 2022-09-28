@@ -99,12 +99,20 @@ router.post('/create-blog', async (req, res) => {
 
 router.put('/update-blog/:id', async (req, res) => {
     try {
-        Blog.update(
+        const updateBlog = Blog.update(
             {
                 title: req.body.title,
-                content: req.body.content
+                content: req.body.content,
+                user_id: req.session.user_id
+            },
+            {
+                where: {
+                    blogId: req.params.id
+                }
             }
-        )
+        );
+
+        res.status(200).json(updateBlog);
     } catch (err) {
         res.status(500).json(err);
     }
