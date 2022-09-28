@@ -30,7 +30,6 @@ const deletePost = async (event) => {
     if (id) {
         const response = await fetch(`/delete-post/${id}`, {
             method: 'DELETE',
-            body: JSON.stringify({ id }),
             header: { 'Content-Type': 'application/json' }
         });
 
