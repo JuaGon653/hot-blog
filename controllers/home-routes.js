@@ -64,7 +64,6 @@ router.get('/login', (req, res) => {
 
 router.post('/create-blog', async (req, res) => {
     try {
-        console.log(req.session.id, 'hi');
         const createdBlog = await Blog.create({
             title: req.body.title,
             content: req.body.content,
