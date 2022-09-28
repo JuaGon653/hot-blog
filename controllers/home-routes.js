@@ -42,11 +42,22 @@ router.get('/dashboard', withAuth, async (req, res) => {
     }
 });
 
-router.get('/edit-post', withAuth, async (req, res) => {
+router.get('/edit-post/:id', withAuth, async (req, res) => {
     try {
-        const userPosts = 
-        res.render('dashboard', {
+        const postId = req.params.id;
 
+        const userPost = await Blog.findByPk(postId, {
+            include: {
+                model: User,
+                attributes: ['username']
+            }
+        });
+
+        const post = userPost.get({ plain: true });
+        console.log(post);
+
+        res.render('edit-post', {
+            post
         })
     } catch (err) {
         res.status(500).json(err);
