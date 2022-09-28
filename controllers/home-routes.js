@@ -126,7 +126,7 @@ router.delete('/delete-post/:id', async (req, res) => {
             }
         });
 
-        res.status(deletedBlog);
+        res.status(200).json(deletedBlog);
     } catch (err) {
         res.status(500).json(err);
     }
