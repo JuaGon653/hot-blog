@@ -130,6 +130,24 @@ router.delete('/delete-post/:id', async (req, res) => {
     } catch (err) {
         res.status(500).json(err);
     }
-})
+});
+
+router.get('/blog/:id/comments', async (req, res) => {
+    try {
+        const blogData = await Blog.findByPk(req.params.id, {
+            include: [{
+                model: User,
+                attributes: ['username'],
+                model: Comment
+            }]
+        });
+
+        const blog = blogData.get({ plain: true });
+
+        res.render('view-post', { blog });
+    } catch (err) {
+        res.status(500).json(err);
+    }
+});
 
 module.exports = router;
