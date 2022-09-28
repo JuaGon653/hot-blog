@@ -95,6 +95,19 @@ router.post('/create-blog', async (req, res) => {
     } catch (err) {
         res.status(500).json(err);
     }
+});
+
+router.put('/update-blog/:id', async (req, res) => {
+    try {
+        Blog.update(
+            {
+                title: req.body.title,
+                content: req.body.content
+            }
+        )
+    } catch (err) {
+        res.status(500).json(err);
+    }
 })
 
 module.exports = router;
