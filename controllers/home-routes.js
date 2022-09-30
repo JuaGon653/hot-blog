@@ -36,7 +36,7 @@ router.get('/dashboard', withAuth, async (req, res) => {
         const blogs = (await userBlogs).map((blog) => blog.get({ plain: true }));
         console.log(blogs);
 
-        res.render('dashboard', { blogs });
+        res.render('dashboard', { blogs, logged_in: req.session.logged_in });
     } catch (err) {
         res.status(500).json(err);
     }
@@ -150,9 +150,32 @@ router.get('/blog/:id/comments', async (req, res) => {
 
         const blog = blogData.get({ plain: true });
 
-        res.render('view-post', {
-            blog
+        const userData = await User.findOne({
+            where: {
+                id: req.session.user_id
+            }
         });
+
+        const user = userData.get({ plain: true });
+
+        res.render('view-post', {
+            blog,
+            user,
+            logged_in: req.session.logged_in
+        });
+    } catch (err) {
+        res.status(500).json(err);
+    }
+});
+
+router.post('/blog/add-comment', async (req, res) => {
+    try {
+        const createdComment = await Comment.create({
+            content: req.body.content,
+            blog_id: req.body.blog_id
+        });
+
+        res.status(200).json(createdComment);
     } catch (err) {
         res.status(500).json(err);
     }
