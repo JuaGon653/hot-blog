@@ -56,3 +56,12 @@ h3{
 textarea {
     max-width: 100%;
 }
+
+.some-card a {
+    color: black
+}
+
+.some-card a:hover {
+    color: rgb(106, 106, 106);
+    text-decoration: none;
+}
