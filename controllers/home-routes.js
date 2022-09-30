@@ -141,26 +141,21 @@ router.get('/blog/:id/comments', async (req, res) => {
             },
             { 
                 model: Comment,
-                attributes: ['content'] 
+                include: [{ model: User, attributes: ['username'] }]
             }],
             attributes: {
                 exclude: ['user_id']
             }
         });
 
+        
+
         const blog = blogData.get({ plain: true });
+        console.log(blog)
 
-        const userData = await User.findOne({
-            where: {
-                id: req.session.user_id
-            }
-        });
-
-        const user = userData.get({ plain: true });
-
+        
         res.render('view-post', {
             blog,
-            user,
             logged_in: req.session.logged_in
         });
     } catch (err) {
@@ -172,7 +167,8 @@ router.post('/blog/add-comment', async (req, res) => {
     try {
         const createdComment = await Comment.create({
             content: req.body.content,
-            blog_id: req.body.blog_id
+            blog_id: req.body.blog_id,
+            user_id: req.session.user_id
         });
 
         res.status(200).json(createdComment);
