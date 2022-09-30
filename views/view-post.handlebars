@@ -9,17 +9,19 @@
 </div>
 
 {{#each blog.comments as |comment|}}
-{{> comments username=../blog.user.username date=../blog.date_created}}
+{{> comments}}
 {{/each}}
 
 <div class="container login-card">
 <h2 class="page-title">Post a comment</h2>
-<form class="form signup-form">
+<form class="form comment-form">
     <div class="form-group">
-    <input class="form-input" type="text" id="username-signup" />
+    <input class="form-input" type="text" id="comment" />
     </div>
     <div class="form-group">
-    <button class="btn btn-primary" type="submit">Add Comment</button>
+    <button class="btn btn-primary" type="submit" id="addComment">Add Comment</button>
     </div>
 </form>
 </div>
+
+<script src="/js/addComment.js"></script>
