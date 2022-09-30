@@ -2,7 +2,6 @@ const updatePost = async (event) => {
     event.preventDefault();
 
     const id = document.querySelector('#update').getAttribute('data-blogId');
-    console.log(id);
 
     const title = document.querySelector('#blog-title').value.trim();
     const content = document.querySelector('#blog-content').value.trim();

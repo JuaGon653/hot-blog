@@ -16,7 +16,7 @@ router.get('/', withAuth, async (req, res) => {
         });
 
         const blogs = blogData.map((blog) => blog.get({ plain: true }));
-        console.log(blogs);
+
         res.render('homepage', { blogs, logged_in: req.session.logged_in });
     } catch (err) {
         res.status(500).json(err);
@@ -34,7 +34,6 @@ router.get('/dashboard', withAuth, async (req, res) => {
         );
 
         const blogs = (await userBlogs).map((blog) => blog.get({ plain: true }));
-        console.log(blogs);
 
         res.render('dashboard', { blogs, logged_in: req.session.logged_in });
     } catch (err) {
@@ -54,7 +53,6 @@ router.get('/edit-post/:id', withAuth, async (req, res) => {
         });
 
         const post = userPost.get({ plain: true });
-        console.log(post);
 
         res.render('edit-post', {
             post
@@ -148,12 +146,8 @@ router.get('/blog/:id/comments', async (req, res) => {
             }
         });
 
-        
-
         const blog = blogData.get({ plain: true });
-        console.log(blog)
 
-        
         res.render('view-post', {
             blog,
             logged_in: req.session.logged_in
