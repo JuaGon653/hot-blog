@@ -4,5 +4,8 @@ module.exports = {
     },
     format_link: (blogId) => {
         return `/edit-post/${blogId}`;
+    },
+    view_post_link: (blogId) => {
+        return `/blog/${blogId}/comments`
     }
 };
