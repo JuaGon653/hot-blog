@@ -3,6 +3,7 @@ const sequelize = require('../config/connection');
 
 class Blog extends Model {}
 
+// creates a table called 'blog' in the database with the indicated fields
 Blog.init(
     {
         blogId: {
