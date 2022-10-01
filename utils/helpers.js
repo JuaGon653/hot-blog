@@ -5,7 +5,7 @@ module.exports = {
     edit_blog_link: (blogId) => {
         return `/edit-blog/${blogId}`;
     },
-    view_post_link: (blogId) => {
+    view_blog_link: (blogId) => {
         return `/blog/${blogId}/comments`
     }
 };
