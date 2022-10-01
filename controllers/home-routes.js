@@ -137,7 +137,7 @@ router.put('/update-blog/:id', async (req, res) => {
 });
 
 // delete a blog
-router.delete('/delete-post/:id', async (req, res) => {
+router.delete('/delete-blog/:id', async (req, res) => {
     try {
         // deletes the blog with the id in the path variable
         const deletedBlog = Blog.destroy({
