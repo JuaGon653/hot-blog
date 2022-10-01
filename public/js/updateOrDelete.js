@@ -1,4 +1,4 @@
-const updatePost = async (event) => {
+const updateBlog = async (event) => {
     event.preventDefault();
 
     const id = document.querySelector('#update').getAttribute('data-blogId');
@@ -21,13 +21,13 @@ const updatePost = async (event) => {
     }
 };
 
-const deletePost = async (event) => {
+const deleteBlog = async (event) => {
     event.preventDefault();
 
     const id = document.querySelector('#update').getAttribute('data-blogId');
     
     if (id) {
-        const response = await fetch(`/delete-post/${id}`, {
+        const response = await fetch(`/delete-blog/${id}`, {
             method: 'DELETE',
             header: { 'Content-Type': 'application/json' }
         });
@@ -40,5 +40,5 @@ const deletePost = async (event) => {
     }
 }
 
-document.querySelector('#update').addEventListener('click', updatePost);
-document.querySelector('#delete').addEventListener('click', deletePost);
+document.querySelector('#update').addEventListener('click', updateBlog);
+document.querySelector('#delete').addEventListener('click', deleteBlog);
