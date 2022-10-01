@@ -65,7 +65,8 @@ router.get('/edit-blog/:id', withAuth, async (req, res) => {
 
         // renders the edit-blog page
         res.render('edit-blog', {
-            blog
+            blog,
+            logged_in: req.session.logged_in
         });
     } catch (err) {
         res.status(500).json(err);
