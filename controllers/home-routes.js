@@ -86,7 +86,7 @@ router.get('/login', (req, res) => {
 });
 
 // create a new blog
-router.post('/create-blog', async (req, res) => {
+router.post('/create-blog', withAuth, async (req, res) => {
     try {
         // creates a blog with values from the request body and session 'user_id' value
         const createdBlog = await Blog.create({
@@ -114,7 +114,7 @@ router.post('/create-blog', async (req, res) => {
 });
 
 // update a blogs data
-router.put('/update-blog/:id', async (req, res) => {
+router.put('/update-blog/:id', withAuth, async (req, res) => {
     try {
         // updates the indicated blog
         const updateBlog = Blog.update(
@@ -138,7 +138,7 @@ router.put('/update-blog/:id', async (req, res) => {
 });
 
 // delete a blog
-router.delete('/delete-blog/:id', async (req, res) => {
+router.delete('/delete-blog/:id', withAuth, async (req, res) => {
     try {
         // deletes the blog with the id in the path variable
         const deletedBlog = Blog.destroy({
@@ -155,7 +155,7 @@ router.delete('/delete-blog/:id', async (req, res) => {
 });
 
 // displays a blog with its comments
-router.get('/blog/:id/comments', async (req, res) => {
+router.get('/blog/:id/comments', withAuth, async (req, res) => {
     try {
         // finds a blog with the same id as in the path variable and includes the blogs user, and the comments with their user's username
         const blogData = await Blog.findByPk(req.params.id, {
@@ -185,7 +185,7 @@ router.get('/blog/:id/comments', async (req, res) => {
 });
 
 // create a comment
-router.post('/blog/add-comment', async (req, res) => {
+router.post('/blog/add-comment', withAuth, async (req, res) => {
     try {
         // creates a comment with values from the request body and session
         const createdComment = await Comment.create({
