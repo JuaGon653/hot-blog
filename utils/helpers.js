@@ -3,7 +3,7 @@ module.exports = {
         return `${date.getMonth()+1}/${date.getDate()}/${date.getFullYear()}`;
     },
     format_link: (blogId) => {
-        return `/edit-post/${blogId}`;
+        return `/edit-blog/${blogId}`;
     },
     view_post_link: (blogId) => {
         return `/blog/${blogId}/comments`
