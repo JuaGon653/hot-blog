@@ -1,9 +1,13 @@
 const router = require('express').Router();
 const { Blog, User, Comment } = require('../models');
+
+// middle ware to check if a user is logged in
 const withAuth = require('../utils/auth');
 
+// displays the homepage with all the posted blogs
 router.get('/', withAuth, async (req, res) => {
     try {
+        // gathers all of the blogs data with the user's username that posted it 
         const blogData = await Blog.findAll({
             include: [
                 {
@@ -15,16 +19,20 @@ router.get('/', withAuth, async (req, res) => {
             ]
         });
 
+        // separates the needed data from a bunch of unecessary data
         const blogs = blogData.map((blog) => blog.get({ plain: true }));
 
+        // renders the homepage with the passed in values
         res.render('homepage', { blogs, logged_in: req.session.logged_in });
     } catch (err) {
         res.status(500).json(err);
     }
 });
 
+// displays the dashboard with the user's posted blogs
 router.get('/dashboard', withAuth, async (req, res) => {
     try {
+        // finds all blogs with the same user_id as the logged in user
         const userBlogs = Blog.findAll(
             {
                 where: {
@@ -35,17 +43,18 @@ router.get('/dashboard', withAuth, async (req, res) => {
 
         const blogs = (await userBlogs).map((blog) => blog.get({ plain: true }));
 
+        // renders the dashboard page
         res.render('dashboard', { blogs, logged_in: req.session.logged_in });
     } catch (err) {
         res.status(500).json(err);
     }
 });
 
+// displays the edit-post page
 router.get('/edit-post/:id', withAuth, async (req, res) => {
     try {
-        const postId = req.params.id;
-
-        const userPost = await Blog.findByPk(postId, {
+        // grabs the blog and user data with the same id as in the path variables
+        const userPost = await Blog.findByPk(req.params.id, {
             include: {
                 model: User,
                 attributes: ['username']
@@ -54,31 +63,38 @@ router.get('/edit-post/:id', withAuth, async (req, res) => {
 
         const post = userPost.get({ plain: true });
 
+        // renders the edit-post page
         res.render('edit-post', {
             post
-        })
+        });
     } catch (err) {
         res.status(500).json(err);
     }
-})
+});
 
+// displays the login page or homepage based off session's 'logged_in' value
 router.get('/login', (req, res) => {
     if (req.session.logged_in) {
+        // homepage
         res.redirect('/');
         return;
     }
 
+    // login page
     res.render('login');
 });
 
+// create a new blog
 router.post('/create-blog', async (req, res) => {
     try {
+        // creates a blog with values from the request body and session 'user_id' value
         const createdBlog = await Blog.create({
             title: req.body.title,
             content: req.body.content,
             user_id: req.session.user_id
         });
 
+        // finds blogs with the id of the 'user_id' in the session
         const myBlogs = await Blog.findAll({
             where: {
                 user_id: req.session.user_id
@@ -87,6 +103,7 @@ router.post('/create-blog', async (req, res) => {
 
         const blogs = myBlogs.map((blog) => blog.get({ plain: true }));
 
+        // renders dashboard with all of user's blogs
         res.render('dashboard', {
             blogs
         });
@@ -95,8 +112,10 @@ router.post('/create-blog', async (req, res) => {
     }
 });
 
+// update a blogs data
 router.put('/update-blog/:id', async (req, res) => {
     try {
+        // updates the indicated blog
         const updateBlog = Blog.update(
             {
                 title: req.body.title,
@@ -110,20 +129,24 @@ router.put('/update-blog/:id', async (req, res) => {
             }
         );
 
+        // returns an '0' or '1' in an array, indicating if it was successful or not 
         res.status(200).json(updateBlog);
     } catch (err) {
         res.status(500).json(err);
     }
 });
 
+// delete a blog
 router.delete('/delete-post/:id', async (req, res) => {
     try {
+        // deletes the blog with the id in the path variable
         const deletedBlog = Blog.destroy({
             where: {
                 blogId: req.params.id
             }
         });
 
+        // returns an '0' or '1' in an array, indicating if it was successful or not 
         res.status(200).json(deletedBlog);
     } catch (err) {
         res.status(500).json(err);
@@ -132,6 +155,7 @@ router.delete('/delete-post/:id', async (req, res) => {
 
 router.get('/blog/:id/comments', async (req, res) => {
     try {
+        // finds a blog with the same id as in the path variable and includes the blogs user, and the comments with their user's username
         const blogData = await Blog.findByPk(req.params.id, {
             include: [{
                 model: User,
@@ -148,6 +172,7 @@ router.get('/blog/:id/comments', async (req, res) => {
 
         const blog = blogData.get({ plain: true });
 
+        // renders the view-post page
         res.render('view-post', {
             blog,
             logged_in: req.session.logged_in
@@ -157,14 +182,17 @@ router.get('/blog/:id/comments', async (req, res) => {
     }
 });
 
+// create a comment
 router.post('/blog/add-comment', async (req, res) => {
     try {
+        // creates a comment with values from the request body and session
         const createdComment = await Comment.create({
             content: req.body.content,
             blog_id: req.body.blog_id,
             user_id: req.session.user_id
         });
 
+        // returns the created comment's data
         res.status(200).json(createdComment);
     } catch (err) {
         res.status(500).json(err);
