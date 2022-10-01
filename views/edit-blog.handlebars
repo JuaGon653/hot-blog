@@ -1,7 +1,7 @@
 <div class="container col-12 p-5" id="post-form">
     <div class="card">
         <div class="card-top">
-            <h1 class="page-title">Edit Post</h1>
+            <h1 class="page-title">Edit Blog</h1>
         </div>
         <div class="card-mid">
             <div class="justify-center p-5">
@@ -9,14 +9,14 @@
                     <form class="form create-post-form">
                     <div class="form-group">
                         <label for="blog-title">Title:</label>
-                        <textarea class="form-input" type="text" id="blog-title">{{post.title}}</textarea>
+                        <textarea class="form-input" type="text" id="blog-title">{{blog.title}}</textarea>
                     </div>
                     <div class="form-group">
                         <label for="blog-content">Content:</label>
-                        <textarea class="form-input" type="text" id="blog-content">{{post.content}}</textarea>
+                        <textarea class="form-input" type="text" id="blog-content">{{blog.content}}</textarea>
                     </div>
                     <div class="form-group">
-                        <button class="btn btn-primary" type="submit" id="update" data-blogId="{{post.blogId}}">Update</button>
+                        <button class="btn btn-primary" type="submit" id="update" data-blogId="{{blog.blogId}}">Update</button>
                     </div>
                     <div class="form-group">
                         <button class="btn btn-primary" type="submit" id="delete">Delete</button>
