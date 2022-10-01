@@ -50,22 +50,22 @@ router.get('/dashboard', withAuth, async (req, res) => {
     }
 });
 
-// displays the edit-post page
-router.get('/edit-post/:id', withAuth, async (req, res) => {
+// displays the edit-blog page
+router.get('/edit-blog/:id', withAuth, async (req, res) => {
     try {
         // grabs the blog and user data with the same id as in the path variables
-        const userPost = await Blog.findByPk(req.params.id, {
+        const userBlog = await Blog.findByPk(req.params.id, {
             include: {
                 model: User,
                 attributes: ['username']
             }
         });
 
-        const post = userPost.get({ plain: true });
+        const blog = userBlog.get({ plain: true });
 
-        // renders the edit-post page
-        res.render('edit-post', {
-            post
+        // renders the edit-blog page
+        res.render('edit-blog', {
+            blog
         });
     } catch (err) {
         res.status(500).json(err);
