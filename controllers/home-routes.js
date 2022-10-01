@@ -153,6 +153,7 @@ router.delete('/delete-blog/:id', async (req, res) => {
     }
 });
 
+// displays a blog with its comments
 router.get('/blog/:id/comments', async (req, res) => {
     try {
         // finds a blog with the same id as in the path variable and includes the blogs user, and the comments with their user's username
@@ -172,8 +173,8 @@ router.get('/blog/:id/comments', async (req, res) => {
 
         const blog = blogData.get({ plain: true });
 
-        // renders the view-post page
-        res.render('view-post', {
+        // renders the view-blog page
+        res.render('view-blog', {
             blog,
             logged_in: req.session.logged_in
         });
